@@ -1,10 +1,19 @@
 import 'package:chatii/consts.dart';
-import 'package:chatii/screens/login_screen.dart';
-import 'package:chatii/screens/rigester_screen.dart';
+import 'package:chatii/screens/chat_screen.dart';
+import 'package:chatii/screens/home_screen.dart';
+import 'package:chatii/screens/login&register/login_screen.dart';
+import 'package:chatii/screens/login&register/password_reset_screen.dart';
+import 'package:chatii/screens/login&register/rigester_screen.dart';
 import 'package:chatii/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const Chatii());
 }
 
@@ -25,6 +34,7 @@ class _ChatiiState extends State<Chatii> {
         colorSchemeSeed: KprimaryColor,
         appBarTheme: AppBarTheme(
           backgroundColor: KprimaryColor,
+          iconTheme: const IconThemeData(color: Colors.white),
           titleTextStyle: const TextStyle(
             color: Colors.white,
             fontSize: 25,
@@ -36,6 +46,9 @@ class _ChatiiState extends State<Chatii> {
         SplashScreen.id: (context) => const SplashScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
+        HomeScreen.id: (context) => const HomeScreen(),
+        ChatScreen.id: (context) => const ChatScreen(),
+        PasswordResetScreen.id: (context) => PasswordResetScreen(),
       },
       initialRoute: SplashScreen.id,
     );
